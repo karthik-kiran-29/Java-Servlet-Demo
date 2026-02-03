@@ -3,6 +3,7 @@ package in.kce.servlet;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -39,9 +40,13 @@ public class LoginServlet extends HttpServlet {
 		//PrintWriter out = response.getWriter();
 		//out.print("<html><body>");
 		
-		HttpSession session = request.getSession();
+		//HttpSession session = request.getSession();
 		
-		session.setAttribute("username", user);
+		//session.setAttribute("username", user);
+		
+		Cookie cookie = new Cookie("username",user);
+		
+		response.addCookie(cookie);
 		
 		if(user.equals("Admin")) {
 			//out.print("<h3>Admin page</h3>" + user);
@@ -53,5 +58,7 @@ public class LoginServlet extends HttpServlet {
 			rd.forward(request, response);
 		}
 		//out.print("</body></html>");
+		
+		//session.invalidate - use it for log out
 	}
 }
